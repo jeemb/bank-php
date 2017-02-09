@@ -29,25 +29,20 @@
 
     // validate page for user to sign back in to see their account amount
     $app->post("/validate", function() use ($app) {
-        $namer = $_POST['name'];
-        $passworder = $_POST['password'];
-        $accounts = Account::getAll();
-        foreach ($accounts as $account) {
-            if ($namer == $account->getName() && $passworder == $account->getPassword()) {
-                echo $account->getAmount();
-            };
-        }
         return $app['twig']->render('validate.html.twig', Account::getAll());
     });
 
     // If identity verified, amount is shown
     $app->post("/update", function() use ($app) {
+        $namer = $_POST['name'];
+        $passworder = $_POST['password'];
+        $accounts = Account::getAll();
+        foreach ($accounts as $account) {
+            if ($namer == $account->getName() && $passworder == $account->getPassword()) {
+                 return $app['twig']->render('update.html.twig', Account::getAll());
+            };
+        }
 
-
-
-
-
-        return $app['twig']->render('create.html.twig');
     });
 
     return $app;
